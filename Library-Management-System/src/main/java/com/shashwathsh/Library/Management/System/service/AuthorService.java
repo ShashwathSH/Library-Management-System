@@ -36,4 +36,25 @@ public class AuthorService {
         AuthorEntity createdAuthor = authorRepository.save(authorEntity);
         return modelMapper.map(createdAuthor, AuthorDTO.class);
     }
+
+    // UPDATE existing author
+    public AuthorDTO updateAuthor(Long authorId, AuthorDTO authorDTO) {
+        AuthorEntity existingAuthorEntity =  authorRepository.findById(authorId)
+                .orElseThrow(() ->
+                        new RuntimeException("Author not found with id: " + authorId)
+                );
+        existingAuthorEntity.setName(authorDTO.getName());
+        existingAuthorEntity.setEmail(authorDTO.getEmail());
+        existingAuthorEntity.setBirthDate((authorDTO.getBirthDate()));
+
+        AuthorEntity savedAuthor = authorRepository.save(existingAuthorEntity);
+
+        return modelMapper.map(savedAuthor, AuthorDTO.class);
+    }
+
+    // DELETE an Author
+    public void deleteAuthor(Long authorId) {
+        authorRepository.deleteById(authorId);
+        System.out.println("Deleted Author with id: " + authorId);
+    }
 }

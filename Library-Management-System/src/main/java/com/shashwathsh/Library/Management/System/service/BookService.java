@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,28 @@ public class BookService {
         BookEntity bookEntity = modelMapper.map(bookDTO, BookEntity.class);
         BookEntity createdBook = bookRepository.save(bookEntity);
         return modelMapper.map(createdBook, BookDTO.class);
+    }
+
+    // UPDATE existing book
+    public BookDTO updateBook(Long bookId, BookDTO bookDTO) {
+        BookEntity existingBook = bookRepository.findById(bookId)
+                .orElseThrow(() ->
+                        new RuntimeException("Book not found with id: "+bookId)
+                );
+
+        existingBook.setAuthor(bookDTO.getAuthor());
+        existingBook.setName(bookDTO.getName());
+        existingBook.setPrice(bookDTO.getPrice());
+        existingBook.setPublishDate(bookDTO.getPublishDate());
+
+        BookEntity savedBook = bookRepository.save(existingBook);
+
+        return modelMapper.map(savedBook,BookDTO.class);
+    }
+
+    // DELETE a Book
+    public void deleteBook(Long bookId) {
+        bookRepository.deleteById(bookId);
+        System.out.println("Deleted Book with id: " + bookId);
     }
 }

@@ -28,4 +28,15 @@ public class BookController {
     public BookDTO createBook(@RequestBody BookDTO bookDTO){
         return bookService.createBook(bookDTO);
     }
+
+    @PutMapping("/{bookId}")
+    public BookDTO updateBook(@PathVariable Long bookId,
+                              @RequestBody BookDTO bookDTO){
+        return bookService.updateBook(bookId,bookDTO);
+    }
+
+    @DeleteMapping("/{bookId}")
+    public void deleteBook(@PathVariable Long bookId){
+        bookService.deleteBook(bookId);
+    }
 }

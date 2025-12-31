@@ -29,5 +29,15 @@ public class AuthorController {
         return authorService.createAuthor(authorDTO);
     }
 
+    @PutMapping("{authorId}")
+    public AuthorDTO updateAuthor(@PathVariable Long authorId,
+                                  @RequestBody AuthorDTO authorDTO){
+        return authorService.updateAuthor(authorId,authorDTO);
+    }
+
+    @DeleteMapping("/{authorId}")
+    public void deleteAuthor(@PathVariable Long authorId){
+        authorService.deleteAuthor(authorId);
+    }
 
 }
