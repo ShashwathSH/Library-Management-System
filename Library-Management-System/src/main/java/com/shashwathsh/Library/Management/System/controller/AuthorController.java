@@ -19,6 +19,11 @@ public class AuthorController {
         return authorService.getAllAuthors();
     }
 
+    @GetMapping("/search")
+    public AuthorDTO findByNameContainingIgnoreCase(@RequestParam String name){
+        return authorService.findByNameContainingIgnoreCase(name);
+    }
+
     @GetMapping("/{authorId}")
     public AuthorDTO getAuthorById(@PathVariable Long authorId){
         return authorService.getAuthorById(authorId);

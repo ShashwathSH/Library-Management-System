@@ -16,8 +16,9 @@ public class BookDTO {
 
     private Long bookId;
     private String name;
-    private AuthorEntity author;
+    private Long authorId;
     private BigInteger price;
     private LocalDate publishDate;
     private LocalDateTime createdAt;
+
 }

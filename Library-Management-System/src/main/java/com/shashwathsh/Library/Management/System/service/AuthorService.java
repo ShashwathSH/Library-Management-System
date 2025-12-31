@@ -57,4 +57,9 @@ public class AuthorService {
         authorRepository.deleteById(authorId);
         System.out.println("Deleted Author with id: " + authorId);
     }
+
+    public AuthorDTO findByNameContainingIgnoreCase(String name) {
+        AuthorEntity author = authorRepository.findByNameContainingIgnoreCase(name);
+        return modelMapper.map(author, AuthorDTO.class);
+    }
 }
